@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 
-class CreateFoods extends Component {
+class UpdateFoods extends Component {
+
     state = {
         food : {
             caffeine: "0",
@@ -19,8 +20,30 @@ class CreateFoods extends Component {
             unit: "",
             sugars: "0",
             trans_fat: "0",
-            year: "2019"
+            year: "0"
         }
+    }
+
+
+
+    componentDidMount() {
+        this.getFood(this.props.match.params.id);
+      }
+    
+    getFood(id){
+        fetch('/svc/foods/'+id)
+        .then(res => res.json())
+        .then((data) => {
+          console.log(data);
+          if(!data._source.unit){
+              data._source.unit = 'g';
+          }
+          if(!data._source.calcium){
+              data._source.calcium = 0;
+          }
+          this.setState({ food: data._source })
+        })
+        .catch(console.log)
     }
 
     handleChange = (e) => {
@@ -38,17 +61,14 @@ class CreateFoods extends Component {
         e.preventDefault();
         console.log(this.state.food);
         const {food} = this.state;
-        fetch('/svc/foods/', {
-            method: 'POST',
+        const id = this.props.match.params.id;
+        fetch('/svc/foods/'+ id, {
+            method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(food)
         })
         .then(res => res.text()) // OR res.json()
-        .then(res => {
-                console.log(res)
-                alert('등록완료');
-             }
-        )
+        .then(res => console.log(res))
     }
 
 
@@ -124,10 +144,9 @@ class CreateFoods extends Component {
                         <input type="text" className="form-control" id="exampleFormControlInput13" name="caffeine" value={food.caffeine} onChange={this.handleChange}/>
                     </div>
                     <div className="form-group col-md-3">
-                        <label htmlFor="exampleFormControlInput15">칼슘 (mg)</label>
-                        <input type="text" className="form-control" id="exampleFormControlInput15" name="calcium" value={food.calcium} onChange={this.handleChange}/>
+                        <label htmlFor="exampleFormControlInput16">칼슘 (mg)</label>
+                        <input type="text" className="form-control" id="exampleFormControlInput16" name="calcium" value={food.calcium} onChange={this.handleChange}/>
                     </div>
-
                     <div className="form-group col-md-3">
                         <label htmlFor="exampleFormControlInput14">출시연도</label>
                         <input type="text" className="form-control" id="exampleFormControlInput14" name="year" value={food.year} onChange={this.handleChange}/>
@@ -141,4 +160,4 @@ class CreateFoods extends Component {
     }
 }
 
-export default CreateFoods;
+export default UpdateFoods;

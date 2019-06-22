@@ -1,14 +1,39 @@
 export default {
   items: [
     {
-      name: 'Foods List',
+      name: 'Food',
       url: '/food',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
+      icon: 'icon-puzzle',
+      children: [
+        {
+          name: 'Foods List',
+          url: '/food/list',
+          icon: 'icon-speedometer',
+        },
+        {
+          name: 'Foods insert',
+          url: '/food/insert',
+          icon: 'icon-speedometer',
+        },
+        {
+          name: 'Foods Update',
+          url: '/food/update/1',
+          icon: 'icon-speedometer',
+        },
+      ]
     },
+    {
+      name: 'ItSite',
+      url: '/itsite',
+      icon: 'icon-puzzle',
+      children: [
+        {
+          name: 'Itsite List',
+          url: '/itsite/list',
+          icon: 'icon-speedometer',
+        },
+      ]
+    }
     // {
     //   title: true,
     //   name: 'Theme',

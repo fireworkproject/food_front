@@ -1,0 +1,6 @@
+{
+  "name": "ItSiteDetail",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ItSiteDetail.js"
+}

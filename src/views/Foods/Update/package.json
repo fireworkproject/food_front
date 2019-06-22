@@ -1,0 +1,6 @@
+{
+  "name": "UpdateFoods",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./UpdateFoods.js"
+}

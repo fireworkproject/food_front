@@ -10,7 +10,9 @@ class Foods extends Component {
 
   state = {
     foods: [],
-    foodName: ''
+    foodName: '',
+    selected : false,
+    select_id: 1
   };
 
   food_name = "";
@@ -50,9 +52,16 @@ class Foods extends Component {
     }else{
       this.getFoodList(0);
     }
-
-
   }
+
+  selectItem = (data) => {
+    this.setState({
+      select_id : data.id,
+      selected : true
+    })
+    this.props.history.push('/food/update/'+data.id);
+  }
+
 
   triggerChange() {
     console.log(this.state);
@@ -62,16 +71,18 @@ class Foods extends Component {
   render() {
 
     const list = this.state.foods.map((food)=>(
-      <FoodTableRow key={food.food_name} food={food}/>
+      <FoodTableRow key={food.food_name} food={food} callbackFunction={this.selectItem} />
     ));
 
     return (
       <div>
         <div id="ui-view">
-          <input
-            placeholder="식품 이름"
-            onChange={evt => this.handleChangeFoodName(evt)}
-          />
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <input type="text" className="form-control" id="search_text" placeholder="식품 이름" onChange={evt => this.handleChangeFoodName(evt)} />
+            </div>
+          </div>
+
           <div className="card">
             <div className="card-header">
               Food List

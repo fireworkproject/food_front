@@ -1,7 +1,9 @@
 
 import React, { Component } from 'react';
 
+
 class FoodTableRow extends Component{
+
     static defaultProps = {
         food: {
             "food_group": "과자류",
@@ -20,6 +22,11 @@ class FoodTableRow extends Component{
             "year": "2017"
         }
       }
+
+    goDetailPage = (data) => {
+        this.props.callbackFunction(data);
+    }
+
     render(){
 
         const { 
@@ -41,7 +48,7 @@ class FoodTableRow extends Component{
         } = this.props.food;
 
         return (
-           <tr>
+           <tr onClick={e => this.goDetailPage({id})}>
                <td>{id}</td>
                <td>{food_group}</td>
                <td>{food_name}</td>
